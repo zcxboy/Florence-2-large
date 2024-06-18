@@ -169,6 +169,16 @@ prompt = <REGION_PROPOSAL>
 run_example(prompt)
 ```
 
+### Caption to Phrase Grounding 
+caption to phrase grounding task requires additional text input, i.e. caption. 
+
+Caption to phrase grounding results format: 
+{'\<CAPTION_TO_PHRASE_GROUNDING>': {'bboxes': [[x1, y1, x2, y2], ...], 'labels': ['', '', ...]}}
+```python
+task_prompt = '<CAPTION_TO_PHRASE_GROUNDING>'
+results = run_example(task_prompt, text_input="A green car parked in front of a yellow building.")
+```
+
 for More detailed examples, please refer to [notebook](https://huggingface.co/microsoft/Florence-2-large/blob/main/sample_inference.ipynb)
 </details>
 
