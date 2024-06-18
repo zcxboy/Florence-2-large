@@ -99,7 +99,7 @@ def run_example(prompt, text_input=None):
     )
     generated_text = processor.batch_decode(generated_ids, skip_special_tokens=False)[0]
 
-    parsed_answer = processor.post_process_generation(generated_text, task="<OD>", image_size=(image.width, image.height))
+    parsed_answer = processor.post_process_generation(generated_text, task=prompt, image_size=(image.width, image.height))
 
     print(parsed_answer)
 ```
@@ -113,7 +113,7 @@ Here are the tasks `Florence-2` could perform:
 ### OCR 
 
 ```python
-prompt = <OCR>
+prompt = '<OCR>'
 run_example(prompt)
 ```
 
@@ -121,25 +121,25 @@ run_example(prompt)
 OCR with region output format:
 {'\<OCR_WITH_REGION>': {'quad_boxes': [[x1, y1, x2, y2, x3, y3, x4, y4], ...], 'labels': ['text1', ...]}}
 ```python
-prompt = <OCR_WITH_REGION>
+prompt = '<OCR_WITH_REGION>'
 run_example(prompt)
 ```
 
 ### Caption
 ```python
-prompt = <CAPTION>
+prompt = '<CAPTION>'
 run_example(prompt)
 ```
 
 ### Detailed Caption
 ```python
-prompt = <DETAILED_CAPTION>
+prompt = '<DETAILED_CAPTION>'
 run_example(prompt)
 ```
 
 ### More Detailed Caption
 ```python
-prompt = <MORE_DETAILED_CAPTION>
+prompt = '<MORE_DETAILED_CAPTION>'
 run_example(prompt)
 ```
 
@@ -150,7 +150,7 @@ OD results format:
 'labels': ['label1', 'label2', ...]} }
 
 ```python
-prompt = <OD>
+prompt = '<OD>'
 run_example(prompt)
 ```
 
@@ -159,7 +159,7 @@ Dense region caption results format:
 {'\<DENSE_REGION_CAPTION>' : {'bboxes': [[x1, y1, x2, y2], ...], 
 'labels': ['label1', 'label2', ...]} }
 ```python
-prompt = <DENSE_REGION_CAPTION>
+prompt = '<DENSE_REGION_CAPTION>'
 run_example(prompt)
 ```
 
@@ -168,7 +168,7 @@ Dense region caption results format:
 {'\<REGION_PROPOSAL>': {'bboxes': [[x1, y1, x2, y2], ...], 
 'labels': ['', '', ...]}}
 ```python
-prompt = <REGION_PROPOSAL>
+prompt = '<REGION_PROPOSAL>'
 run_example(prompt)
 ```
 
