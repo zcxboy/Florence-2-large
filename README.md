@@ -85,7 +85,10 @@ processor = AutoProcessor.from_pretrained("microsoft/Florence-2-large", trust_re
 url = "https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/transformers/tasks/car.jpg?download=true"
 image = Image.open(requests.get(url, stream=True).raw)
 
-def run_example(prompt):
+def run_example(prompt, text_input=None):
+
+    if text_input is not None:
+        prompt = prompt + text_input
 
     inputs = processor(text=prompt, images=image, return_tensors="pt")
     generated_ids = model.generate(
