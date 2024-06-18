@@ -85,11 +85,11 @@ processor = AutoProcessor.from_pretrained("microsoft/Florence-2-large", trust_re
 url = "https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/transformers/tasks/car.jpg?download=true"
 image = Image.open(requests.get(url, stream=True).raw)
 
-def run_example(prompt, text_input=None):
-
-    if text_input is not None:
-        prompt = prompt + text_input
-
+def run_example(task_prompt, text_input=None):
+    if text_input is None:
+        prompt = task_prompt
+    else:
+        prompt = task_prompt + text_input
     inputs = processor(text=prompt, images=image, return_tensors="pt")
     generated_ids = model.generate(
       input_ids=inputs["input_ids"],
@@ -99,7 +99,7 @@ def run_example(prompt, text_input=None):
     )
     generated_text = processor.batch_decode(generated_ids, skip_special_tokens=False)[0]
 
-    parsed_answer = processor.post_process_generation(generated_text, task="<OD>", image_size=(image.width, image.height))
+    parsed_answer = processor.post_process_generation(generated_text, task=task_prompt, image_size=(image.width, image.height))
 
     print(parsed_answer)
 ```
@@ -113,7 +113,7 @@ Here are the tasks `Florence-2` could perform:
 ### OCR 
 
 ```python
-prompt = <OCR>
+prompt = "<OCR>"
 run_example(prompt)
 ```
 
@@ -121,25 +121,25 @@ run_example(prompt)
 OCR with region output format:
 {'\<OCR_WITH_REGION>': {'quad_boxes': [[x1, y1, x2, y2, x3, y3, x4, y4], ...], 'labels': ['text1', ...]}}
 ```python
-prompt = <OCR_WITH_REGION>
+prompt = "<OCR_WITH_REGION>"
 run_example(prompt)
 ```
 
 ### Caption
 ```python
-prompt = <CAPTION>
+prompt = "<CAPTION>"
 run_example(prompt)
 ```
 
 ### Detailed Caption
 ```python
-prompt = <DETAILED_CAPTION>
+prompt = "<DETAILED_CAPTION>"
 run_example(prompt)
 ```
 
 ### More Detailed Caption
 ```python
-prompt = <MORE_DETAILED_CAPTION>
+prompt = "<MORE_DETAILED_CAPTION>"
 run_example(prompt)
 ```
 
@@ -150,7 +150,7 @@ OD results format:
 'labels': ['label1', 'label2', ...]} }
 
 ```python
-prompt = <OD>
+prompt = "<OD>"
 run_example(prompt)
 ```
 
@@ -159,7 +159,7 @@ Dense region caption results format:
 {'\<DENSE_REGION_CAPTION>' : {'bboxes': [[x1, y1, x2, y2], ...], 
 'labels': ['label1', 'label2', ...]} }
 ```python
-prompt = <DENSE_REGION_CAPTION>
+prompt = "<DENSE_REGION_CAPTION>"
 run_example(prompt)
 ```
 
@@ -168,7 +168,7 @@ Dense region caption results format:
 {'\<REGION_PROPOSAL>': {'bboxes': [[x1, y1, x2, y2], ...], 
 'labels': ['', '', ...]}}
 ```python
-prompt = <REGION_PROPOSAL>
+prompt = "<REGION_PROPOSAL>"
 run_example(prompt)
 ```
 
@@ -178,7 +178,7 @@ caption to phrase grounding task requires additional text input, i.e. caption.
 Caption to phrase grounding results format: 
 {'\<CAPTION_TO_PHRASE_GROUNDING>': {'bboxes': [[x1, y1, x2, y2], ...], 'labels': ['', '', ...]}}
 ```python
-task_prompt = '<CAPTION_TO_PHRASE_GROUNDING>'
+task_prompt = "<CAPTION_TO_PHRASE_GROUNDING>"
 results = run_example(task_prompt, text_input="A green car parked in front of a yellow building.")
 ```
 
