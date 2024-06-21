@@ -324,7 +324,7 @@ class Florence2Processor(ProcessorMixin):
         if task_answer_post_processing_type == 'pure_text':
             final_answer = task_answer
             # remove the special tokens
-            final_answer = final_answer.replace('<s>', '').replace('</s>', '')
+            final_answer = final_answer.replace('<s>', '').replace('</s>', '\n')
         elif task_answer_post_processing_type in ['od', 'description_with_bboxes', 'bboxes']:
             od_instances = task_answer
             bboxes_od = [_od_instance['bbox'] for _od_instance in od_instances]
