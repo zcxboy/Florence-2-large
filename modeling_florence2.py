@@ -2533,7 +2533,6 @@ class Florence2ForConditionalGeneration(Florence2PreTrainedModel):
     def __init__(self, config: Florence2Config):
         super().__init__(config)
         assert config.vision_config.model_type == 'davit', 'only DaViT is supported for now'
-        del config.vision_config.model_type
         self.vision_tower = DaViT.from_config(config=config.vision_config)
         # remove unused layers 
         del self.vision_tower.head
