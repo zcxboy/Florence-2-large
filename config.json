@@ -7,11 +7,11 @@
     "AutoConfig": "configuration_florence2.Florence2Config",
     "AutoModelForCausalLM": "modeling_florence2.Florence2ForConditionalGeneration"
   },
-  "bos_token_id": 2,
-  "eos_token_id": 1,
+  "bos_token_id": 0,
+  "eos_token_id": 2,
   "ignore_index": -100,
   "model_type": "florence2",
-  "pad_token_id": 0,
+  "pad_token_id": 1,
   "projection_dim": 1024,
   "text_config": {
       "vocab_size": 51289,
