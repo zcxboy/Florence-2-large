@@ -1,3 +1,4 @@
+#sudo su
 ---
 license: mit
 license_link: https://huggingface.co/microsoft/Florence-2-large/resolve/main/LICENSE
